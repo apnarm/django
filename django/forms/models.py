@@ -204,6 +204,10 @@ class ModelFormMetaclass(type):
             # If a model is defined, extract form fields from it.
             fields = fields_for_model(opts.model, opts.fields,
                                       opts.exclude, opts.widgets, formfield_callback)
+            """
+            Commented out to avoid custom field checking, which does not allow use of CommentSettingsLink and Locations
+            fields in finda.
+
             # make sure opts.fields doesn't specify an invalid field
             none_model_fields = [k for k, v in fields.iteritems() if not v]
             missing_fields = set(none_model_fields) - \
@@ -213,6 +217,7 @@ class ModelFormMetaclass(type):
                 message = message % (', '.join(missing_fields),
                                      opts.model.__name__)
                 raise FieldError(message)
+            """
             # Override default model fields with any custom declared ones
             # (plus, include all the other declared fields).
             fields.update(declared_fields)
